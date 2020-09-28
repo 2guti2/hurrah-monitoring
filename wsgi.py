@@ -7,9 +7,9 @@ host = '0.0.0.0'
 app = create_app()
 port = int(os.environ.get('PORT', default_port))
 
-is_development = app.config.get('DEVELOPMENT')
+env = os.environ.get('ENV', 'development')
 
-if is_development:
+if env == 'development':
     app.run(debug=True)
 else:
     app.run(host=host, port=port, threaded=True)
