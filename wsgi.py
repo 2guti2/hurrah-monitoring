@@ -7,9 +7,9 @@ host = '0.0.0.0'
 app = create_app()
 port = int(os.environ.get('PORT', default_port))
 
-env = os.environ.get('ENV', 'development')
-
-if env == 'development':
-    app.run(debug=True)
-else:
-    app.run(host=host, port=port, threaded=True)
+if __name__ == '__main__':
+    env = os.environ.get('ENV', 'development')
+    if env == 'development':
+        app.run(debug=True)
+    else:
+        app.run(host=host, port=port, threaded=True)
