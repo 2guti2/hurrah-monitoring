@@ -22,3 +22,7 @@ class SessionService:
             self.db.session.commit()
 
         return session
+
+    def is_authorized(self, app, token):
+        with app.app_context():
+            return self.Session.query.filter_by(token=token).first() is not None

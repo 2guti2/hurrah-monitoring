@@ -4,6 +4,8 @@ from flask_cors import CORS
 from injector import Injector
 from flask_injector import FlaskInjector
 from .modules import get_modules
+from .auth_middleware import AuthMiddleware
+from .factories.database import db
 
 
 def setup_config(app):
@@ -24,6 +26,7 @@ def setup_app(app):
 
 def create_app():
     app = Flask(__name__)
+    app.wsgi_app = AuthMiddleware(app.wsgi_app, app, db)
     setup_config(app)
     setup_static_routes(app)
     setup_app(app)

@@ -1,4 +1,4 @@
-from .status_controller import configure_status_endpoints
+from .controllers.status_controller import configure_status_endpoints
 from injector import Module
 
 
