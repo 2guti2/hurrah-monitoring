@@ -1,8 +1,9 @@
 from server import create_app
 
+app = create_app()
+
 
 def run():
-    app = create_app()
     if app.config.get('DEVELOPMENT'):
         app.run(debug=True)
     else:
