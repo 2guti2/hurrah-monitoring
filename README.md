@@ -27,9 +27,9 @@ While in your preferred terminal;
 Start by cloning the repository to your local machine
 
 ```bash
-git clone https://github.com/learningdollars/sushan-reactapp-flask.git
+git clone https://github.com/2guti2/hurrah-monitoring.git
 
-cd sushan-reactapp-flask/
+cd hurrah-monitoring/
 ```
 
 Make and activate a python virtual environment using `virtualenv`
@@ -56,13 +56,28 @@ yarn install
 
 ## Serving the application
 
-You can start a local server by running
+You can start a local server after configuring the following env vars:
 
-```bash
-cd flask-server
-python3 main.py
+```
+APP_SETTINGS=config.DevelopmentConfig
 ```
 visit http://127.0.0.1:5000/ to view your application.
+
+## Migrations
+
+If you have issues with postgres user password use
+```  
+ALTER USER postgres PASSWORD 'postgres'; 
+```
+
+Database commands:
+
+```bash
+$ python3 manage.py db init
+$ python3 manage.py db migrate
+$ python3 manage.py db upgrade
+$ python3 manage.py db --help
+```
 
 ## Built With
 

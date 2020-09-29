@@ -1,5 +1,6 @@
-from injector import Module
-from .status.status_module import configure_status_module
+from flask_sqlalchemy import SQLAlchemy
+from injector import Module, singleton
+from server.factories.database import db, migrate
 
 
 class AppModule(Module):
@@ -7,4 +8,10 @@ class AppModule(Module):
         self.app = app
 
     def configure(self, binder):
-        configure_status_module(self.app)
+        db_instance = self.configure_db(self.app)
+        binder.bind(SQLAlchemy, to=db_instance, scope=singleton)
+
+    def configure_db(self, app):
+        db.init_app(app)
+        migrate.init_app(app, db)
+        return db

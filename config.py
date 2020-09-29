@@ -7,11 +7,11 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     PORT = int(environ.get('port', 5000))
-    RDS_USERNAME = environ.get('RDS_USERNAME')
-    RDS_PASSWORD = environ.get('RDS_PASSWORD')
-    RDS_HOSTNAME = environ.get('RDS_HOSTNAME')
-    RDS_PORT = environ.get('RDS_PORT')
-    RDS_DB_NAME = environ.get('RDS_DB_NAME')
+    RDS_USERNAME = environ.get('RDS_USERNAME', 'postgres')
+    RDS_PASSWORD = environ.get('RDS_PASSWORD', 'postgres')
+    RDS_HOSTNAME = environ.get('RDS_HOSTNAME', 'localhost')
+    RDS_PORT = environ.get('RDS_PORT', 5432)
+    RDS_DB_NAME = environ.get('RDS_DB_NAME', 'hurrah_monitoring_dev')
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://{username}:{password}@{hostname}:{port}/{dbname}" \
         .format(username=RDS_USERNAME, password=RDS_PASSWORD, hostname=RDS_HOSTNAME, port=RDS_PORT, dbname=RDS_DB_NAME)

@@ -3,11 +3,11 @@ import os
 from flask_cors import CORS
 from injector import Injector
 from flask_injector import FlaskInjector
-from .app_module import AppModule
+from .modules import get_modules
 
 
 def setup_config(app):
-    app.config.from_object(os.environ['APP_SETTINGS'])
+    app.config.from_object(os.environ.get('APP_SETTINGS', 'config.DevelopmentConfig'))
 
 
 def setup_static_routes(app):
@@ -18,7 +18,7 @@ def setup_static_routes(app):
 
 def setup_app(app):
     CORS(app)
-    injector = Injector([AppModule(app)])
+    injector = Injector(get_modules(app))
     FlaskInjector(app=app, injector=injector)
 
 
