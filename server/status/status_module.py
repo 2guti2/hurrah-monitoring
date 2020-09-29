@@ -1,5 +1,10 @@
-from .controllers.status_controller import configure_status_endpoints
-from injector import Module
+from injector import (Module, singleton)
+
+from .models.service_status import ServiceStatus
+from .models.status_report import StatusReport
+from .controllers.status_controller import configure_endpoints
+from ..factories.database import db
+from .services.status_service import StatusService
 
 
 class StatusModule(Module):
@@ -7,4 +12,6 @@ class StatusModule(Module):
         self.app = app
 
     def configure(self, binder):
-        configure_status_endpoints(self.app)
+        service_instance = StatusService(db, StatusReport, ServiceStatus)
+        binder.bind(StatusService, to=service_instance, scope=singleton)
+        configure_endpoints(self.app)
