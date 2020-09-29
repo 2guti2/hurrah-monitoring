@@ -4,9 +4,9 @@ import json
 
 
 def configure_status_endpoints(app):
-    status_bp = Blueprint('/status', __name__)
+    status_bp = Blueprint('/api/status', __name__)
 
-    @status_bp.route('/status', methods=['GET'])
+    @status_bp.route('/api/status', methods=['GET'])
     def get_status():
         response = ['status1', 'status2']
         resp = flask.Response(json.dumps(response))
