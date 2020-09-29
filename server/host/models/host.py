@@ -1,0 +1,14 @@
+from server.factories.database import db
+
+
+class Host(db.Model):
+    __tablename__ = 'host'
+
+    id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    name = db.Column(db.String(), unique=True)
+    ram = db.Column(db.Float())
+    services = db.relationship('Service', back_populates='host')
+
+    def __init__(self, name, ram):
+        self.name = name
+        self.ram = ram
