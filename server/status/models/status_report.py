@@ -11,10 +11,14 @@ class StatusReport(db.Model):
     cpu = db.Column(db.Float())
     services_status = db.relationship('ServiceStatus', back_populates='status_report')
 
-    def __init__(self, timestamp, ram, cpu):
+    def __init__(self, timestamp, ram, cpu, services):
         self.timestamp = timestamp
         self.ram = ram
         self.cpu = cpu
+        statuses = []
+        for s in services:
+            statuses.append(self.ServiceStatus(s['name'], s['running']))
+        self.services_status = statuses
 
     def __repr__(self):
         return '<status_report {}>'.format(self.timestamp)
