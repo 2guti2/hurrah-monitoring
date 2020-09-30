@@ -1,14 +1,15 @@
 class StatusService:
-    def __init__(self, db, Report, Host):
+    def __init__(self, db, Report, Host, bus):
         self.db = db
         self.Report = Report
         self.Host = Host
+        self.bus = bus
 
     def create(self, dto):
         host = self.__get_or_create_host(dto)
-        report = host.create_report(dto)
+        host.create_report(dto)
         self.__save_host(host)
-        return report
+        return host
 
     def __get_or_create_host(self, dto):
         host = self.Host.query.filter_by(name=dto['hostname']).first()

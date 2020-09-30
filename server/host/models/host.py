@@ -25,4 +25,10 @@ class Host(db.Model):
     def create_report(self, dto):
         report = Report(dto['timestamp'], dto['usedRamGb'], dto['cpu'], dto['services'])
         self.reports.append(report)
-        return report
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'reports': len(self.reports)
+        }
