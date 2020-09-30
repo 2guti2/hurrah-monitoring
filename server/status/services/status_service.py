@@ -9,6 +9,7 @@ class StatusService:
         host = self.__get_or_create_host(dto)
         host.create_report(dto)
         self.__save_host(host)
+        self.bus.emit('new_report', data=host)
         return host
 
     def __get_or_create_host(self, dto):
