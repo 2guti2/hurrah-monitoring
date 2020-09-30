@@ -31,5 +31,7 @@ class Report(db.Model):
             'id': self.id,
             'timestamp': str(self.timestamp),
             'ram': self.ram,
-            'cpu': self.cpu
+            'cpu': self.cpu,
+            'host': self.host.name,
+            'services_status': list(map(lambda s: s.serialize(), self.statuses))
         }

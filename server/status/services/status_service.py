@@ -6,10 +6,10 @@ class StatusService:
 
     def create(self, dto):
         host = self.__create_or_update_host(dto)
-        host.create_report(dto)
+        report = host.create_report(dto)
         self.__save_host(host)
         self.bus.emit('new_report', data=host)
-        return host
+        return report
 
     def __create_or_update_host(self, dto):
         host = self.Host.query.filter_by(name=dto['hostname']).first()

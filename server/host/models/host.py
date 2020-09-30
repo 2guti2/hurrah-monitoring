@@ -22,6 +22,7 @@ class Host(db.Model):
     def create_report(self, dto):
         report = Report(dto['timestamp'], dto['usedRamGb'], dto['cpu'], dto['services'])
         self.reports.append(report)
+        return report
 
     def update_services(self, services):
         existing_services_names = list(map(lambda s: s.name, self.services))
@@ -32,5 +33,6 @@ class Host(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'services': list(map(lambda s: s.serialize(), self.services)),
             'reports': len(self.reports)
         }

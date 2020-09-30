@@ -20,7 +20,7 @@ class Status(db.Model):
 
     def serialize(self):
         return {
-            'id': self.id,
+            'name': self.name,
             'is_running': self.is_running,
         }
 
