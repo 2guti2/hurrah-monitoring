@@ -22,7 +22,13 @@ class AuthMiddleware:
         return res(environ, start_response)
 
     def is_authorized(self, token, path):
-        return path == '/api/sessions' or path == '/' or (
-            token is not None and
-            self.session_service.is_authorized(self.app, token)
-        )
+        with self.app.app_context():
+            return \
+                path == '/api/sessions' or \
+                path == '/' or \
+                'static' in path or \
+                'templates' in path or \
+                (
+                    token is not None and
+                    self.session_service.is_authorized(token)
+                )

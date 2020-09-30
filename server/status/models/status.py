@@ -1,15 +1,15 @@
 from server.factories.database import db
 
 
-class ServiceStatus(db.Model):
-    __tablename__ = 'service_status'
+class Status(db.Model):
+    __tablename__ = 'status'
     __table_args__ = {'extend_existing': True}
 
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     name = db.Column(db.String())
     is_running = db.Column(db.Boolean())
-    status_report_id = db.Column(db.Integer(), db.ForeignKey('status_report.id'))
-    status_report = db.relationship('StatusReport', back_populates='services_status')
+    report_id = db.Column(db.Integer(), db.ForeignKey('report.id'))
+    report = db.relationship('Report', back_populates='statuses')
 
     def __init__(self, name, is_running):
         self.name = name

@@ -1,6 +1,6 @@
 from injector import (Module, singleton)
 
-from .models.status_report import StatusReport
+from .models.report import Report
 from .controllers.status_controller import configure_endpoints
 from ..factories.database import db
 from .services.status_service import StatusService
@@ -12,6 +12,6 @@ class StatusModule(Module):
         self.app = app
 
     def configure(self, binder):
-        service_instance = StatusService(db, StatusReport, Host)
+        service_instance = StatusService(db, Report, Host)
         binder.bind(StatusService, to=service_instance, scope=singleton)
         configure_endpoints(self.app)
