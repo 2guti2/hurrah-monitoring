@@ -10,7 +10,7 @@ class Report(db.Model):
     timestamp = db.Column(db.DateTime())
     ram = db.Column(db.Float())
     cpu = db.Column(db.Float())
-    statuses = db.relationship('Status')
+    statuses = db.relationship('Status', cascade="all, delete-orphan")
     host_id = db.Column(db.Integer(), db.ForeignKey('host.id'))
     host = db.relationship('Host', back_populates='reports')
 

@@ -1,6 +1,6 @@
 from server import create_app
 
-app = create_app()
+app = create_app(with_jobs=True)
 
 
 def run():
