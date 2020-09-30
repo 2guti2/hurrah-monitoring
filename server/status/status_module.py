@@ -1,6 +1,5 @@
 from injector import (Module, singleton)
 
-from .models.report import Report
 from .controllers.status_controller import configure_endpoints
 from ..factories.database import db
 from .services.status_service import StatusService
@@ -18,7 +17,7 @@ class StatusModule(Module):
         new_report_listener = NewReportListener(self.app)
         event_bus.bind(new_report=new_report_listener.on_new_report)
 
-        service_instance = StatusService(db, Report, Host, event_bus)
+        service_instance = StatusService(db, Host, event_bus)
 
         binder.bind(StatusService, to=service_instance, scope=singleton)
         binder.bind(NewReportListener, to=new_report_listener, scope=singleton)

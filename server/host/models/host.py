@@ -13,18 +13,20 @@ class Host(db.Model):
     services = db.relationship('Service', back_populates='host')
     reports = db.relationship('Report', back_populates='host')
 
-    def __init__(self, name, ram, service_dtos):
+    def __init__(self, name, ram, services):
         self.name = name
         self.ram = ram
         self.reports = []
-        services = []
-        for s in service_dtos:
-            services.append(Service(s['name']))
-        self.services = services
+        self.services = list(map(lambda dto: Service(dto['name']), services))
 
     def create_report(self, dto):
         report = Report(dto['timestamp'], dto['usedRamGb'], dto['cpu'], dto['services'])
         self.reports.append(report)
+
+    def update_services(self, services):
+        existing_services_names = list(map(lambda s: s.name, self.services))
+        not_present_services = list(filter(lambda s: s['name'] not in existing_services_names, services))
+        [self.services.append(Service(new_service['name'])) for new_service in not_present_services]
 
     def serialize(self):
         return {
