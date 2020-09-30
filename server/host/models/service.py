@@ -10,6 +10,5 @@ class Service(db.Model):
     host_id = db.Column(db.Integer(), db.ForeignKey('host.id'))
     host = db.relationship('Host', back_populates='services')
 
-    def __init__(self, name, host_id):
+    def __init__(self, name):
         self.name = name
-        self.host_id = host_id

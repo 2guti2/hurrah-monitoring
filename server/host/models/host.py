@@ -1,6 +1,6 @@
 from server.factories.database import db
-# important ref
 from .service import Service
+from ...status.models.report import Report
 
 
 class Host(db.Model):
@@ -11,7 +11,18 @@ class Host(db.Model):
     name = db.Column(db.String(), unique=True)
     ram = db.Column(db.Float())
     services = db.relationship('Service', back_populates='host')
+    reports = db.relationship('Report', back_populates='host')
 
-    def __init__(self, name, ram):
+    def __init__(self, name, ram, service_dtos):
         self.name = name
         self.ram = ram
+        self.reports = []
+        services = []
+        for s in service_dtos:
+            services.append(Service(s['name']))
+        self.services = services
+
+    def create_report(self, dto):
+        report = Report(dto['timestamp'], dto['usedRamGb'], dto['cpu'], dto['services'])
+        self.reports.append(report)
+        return report

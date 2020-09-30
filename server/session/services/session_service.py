@@ -2,7 +2,7 @@ from server.exceptions.login_failed import LoginFailed
 
 
 def login_succeeds(user):
-    return user.username == 'admin' and user.password == 'Passw0rd!'
+    return user['username'] == 'admin' and user['password'] == 'Passw0rd!'
 
 
 class SessionService:
