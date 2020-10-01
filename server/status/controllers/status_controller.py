@@ -9,7 +9,6 @@ from server.status.services.status_service import StatusService
 def configure_endpoints(app):
     status_bp = Blueprint('/api/statuses', __name__)
 
-    # receive host id and return all reports from that host including the inner service statuses
     @status_bp.route('/api/statuses', methods=['GET'])
     def get_status(service: StatusService):
         host_id = request.args.get('hostId', None)
