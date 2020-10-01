@@ -11,6 +11,12 @@ class StatusService:
         self.bus.emit('new_report', data=host)
         return report
 
+    def get_all(self, host_id):
+        host = self.Host.query.filter_by(id=host_id).first()
+        if host is None:
+            return []
+        return host.reports
+
     def __create_or_update_host(self, dto):
         host = self.Host.query.filter_by(name=dto['hostname']).first()
         if host is None:
