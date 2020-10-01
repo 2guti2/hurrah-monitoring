@@ -1,4 +1,4 @@
-from server import create_app
+from application import create_app
 from flask_migrate import MigrateCommand, Manager
 import glob
 import importlib.util
@@ -9,7 +9,7 @@ manager.add_command('db', MigrateCommand)
 
 # make SqlAlchemy detect the models
 def import_models():
-    for model_name in glob.glob('server/**/models/[!_]*'):
+    for model_name in glob.glob('application/**/models/[!_]*'):
         spec = importlib.util.spec_from_file_location(
             '.'.join(model_name.replace('.py', '').split('/')),
             f'./{model_name}'

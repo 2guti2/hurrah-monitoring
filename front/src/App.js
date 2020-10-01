@@ -1,5 +1,4 @@
 import React from 'react';
-import { Session } from './features/session/Session';
 import { Home } from './features/home/Home'
 import './App.css';
 import {
@@ -9,13 +8,14 @@ import {
 } from 'react-router-dom';
 import {PrivateRoute} from "./PrivateRoute";
 import {Profile} from "./features/profile/Profile";
+import {SignIn} from "./features/session/SignIn";
 
 function App() {
   return (
     <Router>
       <div>
         <Switch>
-          <Route path="/login" component={Session} />
+          <Route path="/login" component={SignIn} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/" component={Home} />
         </Switch>
