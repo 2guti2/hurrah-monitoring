@@ -16,7 +16,7 @@ def setup_config(app):
 def setup_static_routes(app):
     @app.route('/')
     def my_index():
-        return render_template('index.html', flask_token='Hello world')
+        return render_template('index.html')
 
 
 def setup_app(app):

@@ -26,7 +26,9 @@ class AuthMiddleware:
             return \
                 path == '/api/sessions' or \
                 path == '/' or \
+                'login' in path or \
                 'static' in path or \
+                'public' in path or \
                 'templates' in path or \
                 (
                     token is not None and
